@@ -1,0 +1,5 @@
+n = input("Input n: ")
+nnn = int(n*3)
+nn = int(n*2)
+n = int(n)
+print(n + nn + nnn)
