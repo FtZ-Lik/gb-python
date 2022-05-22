@@ -45,3 +45,4 @@ for good in goods:
     for properties in goods_analitic_res:
         if not good[1][properties] in goods_analitic_res[properties]:
             goods_analitic_res[properties].append(good[1][properties])
+print(goods_analitic_res)
