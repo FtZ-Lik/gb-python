@@ -12,8 +12,7 @@
 from abc import ABC, abstractmethod
 class Clothes(ABC):
     '''Обобщенный класс Одежда'''
-    def __init__(self, size):
-        self._size = float(size)
+    count_fabric = 0
 
     @property
     @abstractmethod
@@ -22,17 +21,27 @@ class Clothes(ABC):
 
 class Coat(Clothes):
     '''Класс Пальто'''
+    def __init__(self, V):
+        self._size = float(V)
+        Clothes.count_fabric += self.fabric
+
     @property
     def fabric(self):
         return self._size/6.5 + 0.5
 
 class Suit(Clothes):
     '''Класс Костюм'''
+    def __init__(self, H):
+        self._hight = float(H)
+        Clothes.count_fabric += self.fabric
+
     @property
     def fabric(self):
-        return 2 * self._size + 0.3
+        return 2 * self._hight + 0.3
 
 
 coat_1 = Coat(6.5)
+print(coat_1.fabric)
 suit_1 = Suit(3)
-print(coat_1.fabric + suit_1.fabric) #общий подсчет расхода ткани
+print(suit_1.fabric)
+print(Clothes.count_fabric)
