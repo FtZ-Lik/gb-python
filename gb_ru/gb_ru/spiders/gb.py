@@ -9,27 +9,23 @@ class GbSpider(scrapy.Spider):
     
 
     def parse(self, response):
-        csrf = 'yVyefoMCBxN7EVhxDVBGz3gv0HCCt5czqbzUGujg/X+LZX5GB7LlRRJBStpyt2nF6QqvRu4aUYV7Qy8LBMxsFg=='
-        yield scrapy.FormRequest(
+        #csrf = response.xpath('//input[@name="csrf-token"]/@value')
+        csrf = 'dRQZzxFd/RhYUdb28S8OLzBYakyFACUJfnV5DnlfL9At6ZpC3QZGx401nmtLqeqLHyjFrKzfxC+cliwrrNfI3Q=='
+        print(f'###############################3\n####################################\n{csrf}\n************************\n')
+        yield scrapy.FormRequest.from_response(response, 
             self.url, 
-            method='POST', 
-            callback=self.login,
-            formdata={'user_email': my_login.login, 'user_password': my_login.password},
-            headers={'csrf-token' : csrf}
+            callback=self.after_login,
+            formdata={'utf8' : "✓", 'user[email]': my_login.login, 'user[password]': my_login.password, 'authenticity_token' : csrf, 'user[remember_me]' : "0"},
+            headers={'User-Agent' :	'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/110.0'}
             )
         
-    def login(self, response):
+    def after_login(self, response):
         print('###############################3\n####################################\nlogin\n************************\n')
-        print(response)
+        with open('response.html', 'w') as response_file:
+            response_file.write(response.text())
         print('*\n**\n***\n*****\n')
         j_body = response.json()
         print(j_body)
-        # if j_body.get('authenticated'):
-
-        #     yield response.follow(
-        #         f'/{self.parse_user}',
-        #         callback=self.user_data_parse,
-        #         cb_kwargs={'username': self.parse_user}
-        #     )
+        
             
     

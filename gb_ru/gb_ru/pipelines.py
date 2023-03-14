@@ -12,7 +12,7 @@ from pymongo import MongoClient
 class GbRuPipeline:
     def __init__(self):
         client = MongoClient('localhost', 27017)
-        print('*********************\n**************************\npipe\n')
+        #print('*********************\n**************************\npipe\n')
         self.mongobase = client.gb_ru
 
     def process_item(self, item, spider):
